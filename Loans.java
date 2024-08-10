@@ -29,7 +29,7 @@ public class Loans {
         this.isRePaid = true;
     }
 
-    public String isDue() { 
+    public String isDue() {
         return "Loan: " + loanID + "is due: " + Calendar.getInstance().after(this.endDate);
     }
 }
