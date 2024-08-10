@@ -8,8 +8,8 @@ public class Transaction {
     public float value;
     public byte[] signature;
 
-    public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
-    public ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
+    public ArrayList<TransactionInput> inputs = new ArrayList<>();
+    public ArrayList<TransactionOutput> outputs = new ArrayList<>();
 
     private static int sequence = 0; // a rough count of how many transactions have been generated
 

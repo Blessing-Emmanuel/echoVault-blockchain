@@ -9,8 +9,25 @@ public class Wallet {
     public PrivateKey privateKey;
     public PublicKey publicKey;
     public HashMap<String, TransactionOutput> UXTOs = new HashMap<String, TransactionOutput>();
-    public Wallet() {}
-    public void generateKeyPair(){}
+    public Wallet() {
+        generateKeyPair();
+    }
+    public void generateKeyPair(){
+        try {
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA", "BC");
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
+            // Initialize the key generator and generate a keyPair
+            keyGen.initialize(ecSpec, random);
+            KeyPair keyPair = keyGen.generateKeyPair();
+            //set the public and private keys from the keyPair
+            privateKey = keyPair.getPrivate();
+            publicKey = keyPair.getPublic();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // returns balance and stores the UXTOs owned by this wallet in this.UXTOs
     public float getBalance() {
@@ -49,5 +66,21 @@ public class Wallet {
             UXTOs.remove(input.transactionOutputID);
         }
         return newTransaction;
+    }
+
+    public Loans newLoan(PublicKey borrower, float amount,
+                                float interestRate, int durationDays) {
+        Loans newloan = new Loans(publicKey, borrower, amount, interestRate, durationDays);
+        EchoVault.loans.add(newloan);
+        return newloan;
+    }
+
+    public void repayLoan(String loanID) {
+        for (Loans loan : EchoVault.loans) {
+            if (loan.loanID.equals(loanID) && loan.borrower.equals(publicKey)) {
+                loan.repayLoan();
+                break;
+            }
+        }
     }
 }

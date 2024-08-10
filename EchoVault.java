@@ -1,3 +1,4 @@
+import java.security.PublicKey;
 import java.security.Security;
 import java.util.Base64;
 import java.util.ArrayList;
@@ -6,8 +7,9 @@ import java.util.HashMap;
 import com.google.gson.GsonBuilder;
 
 public class EchoVault {
-    public static ArrayList<Block> blockchain = new ArrayList<Block>();
-    public static HashMap<String, TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>();
+    public static ArrayList<Block> blockchain = new ArrayList<>();
+    public static HashMap<String, TransactionOutput> UTXOs = new HashMap<>();
+    public static ArrayList<Loans> loans = new ArrayList<>();
     public static int difficulty = 3;
     public static float minimumTransaction = 0.1f;
     public static Wallet walletA;

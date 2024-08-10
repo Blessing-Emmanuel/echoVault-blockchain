@@ -6,7 +6,7 @@ public class Block {
     public String hash;
     public String previousHash;
     public String merkleRoot;
-    public ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    public ArrayList<Transaction> transactions = new ArrayList<>();
     private long timeStamp;
     private int foo;
 
